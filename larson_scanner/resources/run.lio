@@ -1,0 +1,27 @@
+; onboard phatIO larson scanner
+; see http://www.phatio.com/ideas/larson_scanner/
+; uses pins 0..11
+
+;(config 1 1)
+
+(defvar current 0) # the current LED
+(defvar direction 1) # 1=up -1=down
+
+; set pins 0..11 as outputs and turn off
+(while (< current 12)
+	(pinmode current OUT 0)
+	(+= current 1)
+)
+
+; every 25 milliseconds turn off current led
+; increment or decrement current depending on which direction we're going
+; turn on current led
+(every 25
+	(setpin current 0)
+	(if (> current 10) 
+		(= direction -1))
+	(if (eq current 0) 
+		(= direction 1))
+	(+= current direction)
+	(setpin current 1)
+)

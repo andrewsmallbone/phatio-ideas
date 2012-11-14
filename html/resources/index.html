@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js" type="text/javascript"></script>
+	<script src="jQuery.twFile.js" type="text/javascript"></script>
+	
+	<script type="text/javascript">
+	
+	// assumes examples directory is at top level iodir is the location of the 'io' directory in the root of the drive
+    var iodir = window.location.pathname.toString().replace(/examples\/.*/, "io/");
+	
+
+	function readIO(id)
+	{
+ 		var file = id.replace("_", "/");
+		return $.twFile.load(iodir+file).replace(/^\s+|\s+$/g, '');	
+	}
+	function writeIO(id, value)
+	{
+ 		var file = id.replace("_", "/");
+		$.twFile.save(iodir+file, value);	
+	 }
+
+  	function setElementValFromIO(element)
+  	{
+		var current_value = readIO(element.id);
+		$(element).val(current_value);
+  	 }
+
+ 	function setIOValFromElement(element)
+ 	{
+		writeIO(element.id, $(element).val());
+ 	 }
+
+	 var adc_pins = [0, 1, 2, 3, 4, 5, 9, 10, 11, 16, 18, 19];
+	 var pwm_pins = [6, 7, 8, 9, 10];
+
+	 $(function() {
+		 for (var i=0; i<20; i++) {
+	  		 $('#pins').append("<li><b>pin "+i.toString()+"</b> mode: " 
+				+ "<select id='mode_"+i.toString()+"' autochange='true'>"
+				+ "<option>OUT</option><option>HIGH</option><option>IN</option>"
+				+ (pwm_pins.indexOf(i) != -1 ? "<option>PWM</option>" : "")
+				+ (adc_pins.indexOf(i) != -1 ? "<option>ADC</option>" : "")
+				+ "</select>&nbsp;"
+				+ "<input type='text' id='pins_"+i.toString()+"' autochange='true'></input"
+				+ "</li>");
+			}
+
+		 $('*[autochange]').each(function(index){
+			 setElementValFromIO(this);
+		     $(this).change(function(){setIOValFromElement(this);});
+		 });
+		 $("*[autofill]").each(function(index){
+			 setElementValFromIO(this);
+		  });	 
+
+
+	 })
+
+
+
+	</script>
+	
+</head>
+<body>
+	<h1>Simple phatIO HTML example.</h1>
+<p>	
+	This html file needs to be opened from within the "PHATIO/examples/" directory.
+</p>
+<p>	Support for different web browsers and versions will vary.
+</p>
+<p>
+	It uses <a src="http://jquery.tiddlywiki.org/twFile.html">twFile</a> a <a src="http://jquery.com/">jQuery</a> plugin based on <a src="http://tiddlywiki.com/">TiddleyWiki</a>'s self-saving abilities.  It tries to use the native browse save capability and falls back to a Java Applet if none of those work.
+</p>
+	<p>
+	Currently, just the raw pin modes and values are shown:
+	
+	<ul id="pins"></ul>
+	
+</body>
+
+</html>

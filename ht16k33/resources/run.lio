@@ -1,0 +1,102 @@
+; Driver/controller for an HT16K33 i2c/twi extension/led control chip
+; see http://www.phatio.com/ideas/ht16k33/
+; examples assume a 7 segment, RGY (3 colour), or mono matrix such as
+; the adafruit backpacks: http://learn.adafruit.com/adafruit-led-backpack
+(config 1 1 0)
+
+; Copy this file or add contents to the io/run.lio file on your phatIO device
+
+; Following assumes that the device is configured with address 0 and hence 
+; has an i2c address of 0xE0 - change the address accordingly if not
+; address is in format 1000AAA0, where AAA is the device address
+(defvar addr 0xE0)
+(defvar i 0)
+
+; write to configuration registers - see information on page 10-11 of HT16K33 datasheet
+(defun ht16k33_init 
+	(twi addr 0x21) ; turn matrix control oscillator on (0x20 to turn off)
+	(twi addr (| 0xE0 0)) ; set brightness (between 0 and 15)
+	(twi addr (| 0x80 1)) ; set display on, no blinking (1=on, 0=off, 3=2Hz, 5=1Hz, 7=0.5Hz)
+)
+
+; Following is a driver for the full ht16k33 RAM 
+
+; suitable if a 2 colour (RGY - red/green yellow) matrix is attached
+; here we need all 16 bytes to control the matrix
+; The file is assumed to contain 16 2-character hex digits.
+(driver ht16k33 
+	(= i 0)
+	(twi addr 0x00 
+		; loop over each byte in the file, sending it to twi
+		; 16 bytes of 2 chars each = 32, starting at 0 ending at 30
+		(while (< i 32) 
+			(twi_write (read_hexbyte i))
+			(= i (+ i 2)) 
+		)
+	)
+)
+
+; create a driver that will be executed whenever the file "io/dev/mat" is written to.
+; The driver simply copies the contents of the file to the HT16K33 RAM which in turn
+; makes the appropriate LEDs light up.
+; For example: FFFFFFFFFFFFFFFF would turn all segments on and 0000000000000000 would 
+; turn them off.
+; If a 4 digit (plus colon) 7 segment display is attached only the first 5 bytes are needed.
+(driver mono
+	(= i 0)
+	(twi addr 0x00 
+		(while (< i 15)
+			 (twi_write (read_hexbyte i) 0x00)
+			  (= i (+ i 2))
+		)
+	)
+)
+
+
+
+; map of digits to segments: (getvar cmap 3) will give the
+; segments to display 3
+(defconst cmap 0x3F 0x06 0x5B 0x4F 0x66 0x6D 0x7D 0x07 0x7F 0x6F 0x77)
+
+; the file "io/dev/time" is expected to contain 4 ascii digits 0-9
+; which are displayed on the 7 segment display with ':' set "88:88"
+; (- (read_byte 0) 48)  will convert the ascii digit (eg. '3') to a number (eg. 3)
+(driver time
+ 	(twi addr 0x00
+		(getvar cmap (- (read_byte 0) 48)) 0x00 ; digit 0
+		(getvar cmap (- (read_byte 1) 48)) 0x00 ; digit 1
+		0xFF 0x00 ; colon
+		(getvar cmap (- (read_byte 2) 48)) 0x00 ; digit 2
+		(getvar cmap (- (read_byte 3) 48)) 0x00 ; digit 3
+	)
+)
+
+; display the 4 digit number in file "io/dev/number"
+; non numeric code replaced with empty digit
+; this is fairly basic at the moment
+(driver number
+	(= i 0)
+ 	(twi addr 0x00
+	 	(while (< i 4) 
+			(if (eq i 2) (twi_write 0x00 0x00)); if 2nd char send empty colon
+			(if (and (> (read_byte i) 47) (< (read_byte i) 59) ); if 0..9
+				 (twi_write (getvar cmap (- (read_byte i) 48)) 0x00); map digit to segment LEDs
+				 (twi_write 0x00 0x00); if not digit blank digit
+				)
+			(= i (+ i 1))
+		)
+	)
+)
+
+
+; driver that allows the address of the twi device to be changed by
+; writing to the file dev/address.
+; address is in bits 1,2,3 of byte: (1000AAA0)
+; so we right shift the value and then or with 0xE0
+(driver address 
+	(setvar addr (| 0xE0 (<< (read_hexbyte 0) 1)))
+	(ht16k33_init)
+)
+
+
+(ht16k33_init)
