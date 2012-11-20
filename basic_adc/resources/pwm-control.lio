@@ -1,0 +1,25 @@
+; basic analogue to digital convertor phatIO demo
+; see http://www.phatio.com/ideas/basic_adc#pwmcontrol
+; copy to run.lio on your phatIO device;
+;
+
+; define memorable constants for the photo sensor and potentiomter
+(defconst light 0)
+(defconst pot 16)
+
+(pinmode light ADC) ; set bot pins to ADC inputs
+(pinmode pot ADC)
+	
+(defconst l 10) ; define a constant for the output pin
+(pinmode l PWM)
+
+; set intensity of LED proportional to ADC input of potentiometer
+(every 20
+    (setpin l (/ (getpin pot) 4))
+)
+
+; set intensity of LED inversely proportional to light falling
+; on photoresistor
+;(every 20
+;	(setpin l (- 255 (/ (getpin light) 4)))
+;)

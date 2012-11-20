@@ -1,0 +1,15 @@
+; basic analogue to digital convertor phatIO demo
+; see http://www.phatio.com/ideas/basic_adc#scheduledread
+; copy to run.lio on your phatIO device;
+;
+
+; define memorable constants for the photo sensor and potentiomter
+(defconst light 0)
+(defconst pot 16)
+
+(pinmode light ADC) ; set bot pins to ADC inputs
+(pinmode pot ADC)
+	
+(every 1000
+    (keyboard "p: " (getpin pot) ", l: " (getpin light) "\n")
+) 

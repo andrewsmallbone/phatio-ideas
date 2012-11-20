@@ -1,0 +1,52 @@
+; basic analogue to digital convertor phatIO demo
+; see http://www.phatio.com/ideas/basic_adc#display
+; displays the adc value of pin 16 to a ht16k33 display
+; copy this file to run.lio on your phatIO device
+;
+(config 1 1 0) 
+
+; set to the number of a pin we'll read later
+(defconst adc 16)
+(defconst l 10)
+
+(pinmode adc ADC)
+(pinmode l PWM)
+
+
+; initialize ht16k33 7 segment display, address of the display is 2
+(defvar addr 0xE4);
+(twi addr 0x21)
+(twi addr (| 0xE0 7))
+(twi addr (| 0x80 1))
+
+; 4 character to string to hold current adc value
+(defvar display "    ")
+
+; convert string in adc variable to segments and send to display
+(defconst cmap 0x3F 0x06 0x5B 0x4F 0x66 0x6D 0x7D 0x07 0x7F 0x6F 0x77)
+(defun update
+ 	(twi addr 0x00
+		(getvar cmap (- (getvar display 0) '0')) 0x00 ; digit 0
+		(getvar cmap (- (getvar display 1) '0')) 0x00 ; digit 1
+		0x00 0x00 ; colon
+		(getvar cmap (- (getvar display 2) '0')) 0x00 ; digit 2
+		(getvar cmap (- (getvar display 3) '0')) 0x00 ; digit 3
+	)
+)
+
+
+(defvar val 0)
+
+; every 20ms read the adc set in val and set pwm output
+(every 20
+	(= val (getpin adc))
+	(setpin l (/ val 4) )
+)
+
+; every 200ms update display
+(every 200
+	(= display (fmt "%4d" val))
+	(update);
+)
+
+
