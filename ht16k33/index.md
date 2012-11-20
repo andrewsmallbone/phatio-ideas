@@ -120,14 +120,18 @@ The extract below (in the examples/ht16k33/run.lio) defines a very simple driver
 
 	(defconst cmap 0x3F 0x06 0x5B 0x4F 0x66 0x6D 0x7D 0x07 0x7F 0x6F 0x77)
 	(driver time
- 		(twi addr 0x00
-			(getvar cmap (- (read_byte 0) 48)) 0x00 ; digit 0
-			(getvar cmap (- (read_byte 1) 48)) 0x00 ; digit 1
+	 	(twi addr 0x00
+			(getvar cmap (- (read_byte 0) '0')) 0x00 ; digit 0
+			(getvar cmap (- (read_byte 1) '0')) 0x00 ; digit 1
 			0xFF 0x00 ; colon
-			(getvar cmap (- (read_byte 2) 48)) 0x00 ; digit 2
-			(getvar cmap (- (read_byte 3) 48)) 0x00 ; digit 3
+			(getvar cmap (- (read_byte 2) '0')) 0x00 ; digit 2
+			(getvar cmap (- (read_byte 3) '0')) 0x00 ; digit 3
 		)
 	)
+
+
+`(- (read_byte 0) '0')` will read the byte at position 0 in the device file (the first character) and subtrace ASCII value '0' from it, this will map character "3" to number 3, "5" to 5 etc.  We then use this as an an index to getvar to get the nth member of the cmap array which is contains which segments to display for the relevant number.  If getvar receives an out of bounds index (less than 0 or greater than 9 in this case) it will return 0 - which will result in a blank digit on the display.  So "  33" and "xx33" would both be shown as "  33" on the display.
+
 
 Finally the example file contains a very basic `number` device driver, which allows a 4 digit asci number to be written directly to the display:
 
