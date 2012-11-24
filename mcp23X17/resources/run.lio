@@ -1,0 +1,30 @@
+(config 1 1 0)
+
+; address byte is 0100AAAW
+; AAA is the chip address matching that set on pins 15-17
+; W is 0 for read, 1 for write
+(defvar addr 0x40)
+
+; spi device config
+(defconst ss 19)
+(pinmode ss OUT 1)
+(spi_conf 0 msb 6)
+(setpin ss 0)(spi addr 0x00 0x00 0x00)(setpin ss 1)
+(setpin ss 0)(spi addr 0x12 0x00 0x00)(setpin ss 1)
+
+; twi device config
+(twi addr 0x00 0x00 0x00)
+(twi addr 0x12 0x00 0x00)
+
+
+(driver spiio	
+	(spi_conf 0 msb 6)
+	(setpin ss 0)
+	  (spi addr 0x12 (read_hexbyte 0) (read_hexbyte 2))
+	(setpin ss 1)
+)
+
+(driver twiio
+	(twi addr 0x12 (read_hexbyte 0) (read_hexbyte 2))
+)
+
