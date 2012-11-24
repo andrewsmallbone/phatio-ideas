@@ -1,0 +1,41 @@
+; Driver/controller for an 8x8 LED matrix
+; see http://www.phatio.com/ideas/led_matrix
+; A better way to do this is probably with a driver chip:
+; http://www.phatio.com/ideas/ht16k33
+;
+(config 1 1)
+
+; led matrix being used has anodes on pins 0..8
+(defvar i 0)
+(while (< i 8)
+       (pinmode i OUT 1)
+       (+= i 1))
+
+; and cathodes on pins 12..19
+(= i 12)
+(while (< i 20)
+       (pinmode i OUT 0)
+       (+= i 1))
+ 
+; array to hold each row of LED matrix
+(defvar rows 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF)
+(defvar row 0); current row
+
+
+; store the hex contents of file PHATIO/io/dev/matrix
+; to the rows array
+(driver matrix 
+	(= i 0)
+	(while (< i 8)
+	       (setvar rows i (~ (read_hexbyte (* i 2))))
+		   (+= i 1))
+)
+
+; every 3 milliseconds show a new row
+(every 3
+       (setpin row 0); turn off current row
+       (= row (if (eq row 7) 0 (+ row 1)))
+	   (port (getvar rows row) 12 13 14 15 16 17 18 19)
+       (setpin row 1)
+)
+

@@ -1,0 +1,68 @@
+#! /bin/bash
+# send some data to led matrix
+# see http://www.phatio.com/ideas/led_matrix/
+
+
+if [ ! -d "$PHATIO" ]; then
+	echo "set the PHATIO variable to point to your phatIO location"
+	exit
+fi
+
+# simple function to echo the arguments to the matrix file on the phatIO
+matrix()
+{
+	echo $1 > $PHATIO/io/dev/matrix
+	sleep .1
+}
+
+matrix 0000000000000000
+matrix 0000001818000000
+matrix 00003C3C3C3C0000
+matrix 007E7E7E7E7E7E00
+matrix FFFFFFFFFFFFFFFF
+matrix 007E7E7E7E7E7E00
+matrix 00003C3C3C3C0000
+matrix 0000001818000000
+matrix 0000000000000000
+
+matrix 0000000000000000
+matrix 00000000000000FF
+matrix 000000000000FFFF
+matrix 0000000000FFFFFF
+matrix 00000000FFFFFFFF
+matrix 000000FFFFFFFFFF
+matrix 0000FFFFFFFFFFFF
+matrix 00FFFFFFFFFFFFFF
+matrix FFFFFFFFFFFFFFFF
+
+matrix FFFFFFFFFFFFFF00
+matrix FFFFFFFFFFFF0000
+matrix FFFFFFFFFF000000
+matrix FFFFFFFF00000000
+matrix FFFFFF0000000000
+matrix FFFF000000000000
+matrix FF00000000000000
+matrix 0000000000000000
+
+
+matrix 0101010101010101
+matrix 0303030303030303
+matrix 0707070707070707
+matrix 0F0F0F0F0F0F0F0F
+matrix 1F1F1F1F1F1F1F1F
+matrix 3F3F3F3F3F3F3F3F
+matrix 7F7F7F7F7F7F7F7F
+matrix FFFFFFFFFFFFFFFF
+
+matrix 7F7F7F7F7F7F7F7F
+matrix 3F3F3F3F3F3F3F3F
+matrix 1F1F1F1F1F1F1F1F
+matrix 0F0F0F0F0F0F0F0F
+matrix 0707070707070707
+matrix 0303030303030303
+matrix 0101010101010101
+matrix 0000000000000000
+
+
+
+
