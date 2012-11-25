@@ -1,31 +1,38 @@
 title:	Example Projects and phatIO Ideas
 
-Some example projects, ideas, and things todo with phatIO:
+Some example projects, ideas, and things todo with phatIO.
 
-[Larson Scanner](./larson_scanner/)
+[Larson Scanner](larson_scanner/)
 :	Scanning LEDS ala Knight Rider
 
-[LED dislay Control with the ht16k33](./ht16k33/)
+[LED dislay Control with the ht16k33](ht16k33/)
 :	Communicate with popular TWI LED controllers
 
-[Basic ADC - Analogue to Digital Conversion](./basic_adc/)
+[Basic ADC - Analogue to Digital Conversion](basic_adc/)
 :	Some ideas and techniques for using phatIO ADC capable pins.
 
-[Controlling phatIO from HTML in a web browser](./html/)
+[Controlling phatIO from HTML in a web browser](html/)
 :	Use some browsers support for local file access to control phatIO
 
 
+Some examples underdevelopment, not completed or fully documented, but may be useful:
 
-Some uncompleted examples, not completed or fully documented, but may be useful:
-
-[Using the MCP23017/MCP23S17 IO Expander](./mcp23X17/)
+[Using the MCP23017/MCP23S17 IO Expander](mcp23X17/)
 :	Adding another 16 IO ports using a SPI or I2C expander.
 
-[Simple Control of LED Matrix](./led_matrix/)
+[Simple Control of LED Matrix](led_matrix/)
 :	Directly controlling an LED Matrix using phatIO's IO pins.
 
+[Simple Keyboard Hacks](keyboard/)
+:	Ideas for what to do with phatIO's keyboard simulation
 
-Planned but not yet documented:
+
+Planned but not coded or documented.
 
 *	Using the MAX7219LED display driver.
-*	Simulating a Keyboard.
+*	Using the HD44780.
+
+
+##Contribution
+
+To contribute an idea or make an enhancement or correction to an existing one, create a pull request on the [git repository](github.com/phatio/ideas), or [mail](mailto:andrew@rocketnumbernine.com).  Your contriubtions are welcomed and will be credited.  Any questions please use the [forums](http://www.phatio.com/forum/viewforum.php?f=7&sid=85ba717a4deb0ea2e0af86e029fa002d)

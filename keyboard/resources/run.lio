@@ -1,0 +1,25 @@
+; Driver/controller for an keyboard demos
+; see http://www.phatio.com/ideas/keyboard
+
+(config 1 1)
+
+(pinmode 0 HIGH)
+(pinmode 1 HIGH)
+
+; I Love you gmail reply
+;(pin_goes_low 0 (keyboard "r I Love You\t\n"))
+;(pin_goes_low 0 (keyboard "j"))
+
+; Launch Windows Application/Documents
+;(pin_goes_low 0 (keyboard "%{LeftControl+LeftAlt+J}"))
+
+; OS X hacks
+; zoom in and out
+;(pin_goes_low 0 (keyboard "%{LeftAlt+LeftGUI+=}"))
+;(pin_goes_low 1 (keyboard "%{LeftAlt+LeftGUI+-}"))
+
+; OS X LaunchBar hacks
+;(pin_goes_low 0 (keyboard "%{LeftGUI+ }twitter This is an automated tweet \n"))
+;(pin_goes_low 0 (keyboard "%{LeftGUI+ }skype 555 1234 5678\n"))
+ 
+
