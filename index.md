@@ -35,4 +35,4 @@ Planned but not coded or documented.
 
 ##Contribution
 
-To contribute an idea or make an enhancement or correction to an existing one, create a pull request on the [git repository](github.com/phatio/ideas), or [mail](mailto:andrew@rocketnumbernine.com).  Your contriubtions are welcomed and will be credited.  Any questions please use the [forums](http://www.phatio.com/forum/viewforum.php?f=7&sid=85ba717a4deb0ea2e0af86e029fa002d)
+To contribute an idea or make an enhancement or correction to an existing one, create a pull request on the [git repository](http://github.com/phatio/ideas), or [mail](mailto:andrew@rocketnumbernine.com).  Your contriubtions are welcomed and will be credited.  Any questions please use the [forums](http://www.phatio.com/forum/viewforum.php?f=7&sid=85ba717a4deb0ea2e0af86e029fa002d)
