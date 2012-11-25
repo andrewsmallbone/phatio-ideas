@@ -1,3 +1,6 @@
+; SPI and TWI MCP23x17 driver example code for phatIO
+; see www.phatio.com/ideas/mcp23X17
+; copy this file to PHATIO/io/run.lio on your phatIO device
 (config 1 1 0)
 
 ; address byte is 0100AAAW

@@ -1,6 +1,7 @@
 ; onboard phatIO larson scanner
 ; see http://www.phatio.com/ideas/larson_scanner/
 ; uses pins 0..11
+; copy this file to PHATIO/io/run.lio on your phatIO device
 
 ;(config 1 1)
 

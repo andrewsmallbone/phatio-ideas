@@ -2,6 +2,7 @@
 ; see http://www.phatio.com/ideas/led_matrix
 ; A better way to do this is probably with a driver chip:
 ; http://www.phatio.com/ideas/ht16k33
+; copy this file to PHATIO/io/run.lio on your phatIO device
 ;
 (config 1 1)
 

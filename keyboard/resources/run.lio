@@ -1,5 +1,6 @@
 ; Driver/controller for an keyboard demos
 ; see http://www.phatio.com/ideas/keyboard
+; copy this file to PHATIO/io/run.lio on your phatIO device
 
 (config 1 1)
 

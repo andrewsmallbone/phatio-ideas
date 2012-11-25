@@ -2,6 +2,8 @@
 ; see http://www.phatio.com/ideas/ht16k33/
 ; examples assume a 7 segment, RGY (3 colour), or mono matrix such as
 ; the adafruit backpacks: http://learn.adafruit.com/adafruit-led-backpack
+; copy this file to PHATIO/io/run.lio on your phatIO device
+
 (config 1 1 0)
 
 ; Copy this file or add contents to the io/run.lio file on your phatIO device

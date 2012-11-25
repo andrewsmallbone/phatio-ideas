@@ -1,7 +1,7 @@
 ; basic analogue to digital convertor phatIO demo
 ; see http://www.phatio.com/ideas/basic_adc#display
 ; displays the adc value of pin 16 to a ht16k33 display
-; copy this file to run.lio on your phatIO device
+; copy this file to PHATIO/io/run.lio on your phatIO device
 ;
 (config 1 1 0) 
 

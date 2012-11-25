@@ -1,6 +1,6 @@
 ; basic analogue to digital convertor phatIO demo
 ; see http://www.phatio.com/ideas/basic_adc#scheduledread
-; copy to run.lio on your phatIO device;
+; copy this file to PHATIO/io/run.lio on your phatIO device
 ;
 
 ; define memorable constants for the photo sensor and potentiomter
