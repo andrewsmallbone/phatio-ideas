@@ -37,8 +37,7 @@ See the [keyboard](/guide/lio/keyboard) section of the guide for how to simulate
 
 ## Typing Speed
 
-TBD
-
+To Be Written.
 
 
 ## __I Love You__ Gmail reply
@@ -53,7 +52,7 @@ Perhaps a more useful is a simple "j" to go to next mail - useful if triggered b
 
 A sequence of [gmail shortcuts](http://support.google.com/mail/bin/answer.py?hl=en&answer=6594) can be added together to script and action.
 
-## Launch Windows Application/Documents
+## Launch Windows Application and Documents
 
 All the existing Windows shortcuts can be scripted from phatIO, applications and documents can have keyboard shortcuts assigned:
  
