@@ -27,10 +27,11 @@ Some examples underdevelopment, not completed or fully documented, but may be us
 :	Ideas for what to do with phatIO's keyboard simulation
 
 
-Planned but not coded or documented.
+Planned but code not completed coded or documented.
 
 *	Using the MAX7219LED display driver.
 *	Using the HD44780.
+*	Displaying Web Scraped data.
 
 
 ##Contribution
