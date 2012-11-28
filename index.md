@@ -31,7 +31,7 @@ Planned but code not completed coded or documented.
 
 *	Using the MAX7219LED display driver.
 *	Using the HD44780.
-*	Displaying Web Scraped data.
+*	Displaying Web Scraped data and integrating with Dropbox
 
 
 ##Contribution

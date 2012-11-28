@@ -10,7 +10,7 @@ Note this guide is currently a little linux/osx specific - Only bash shell and r
 
 This guide shows various ways of making a simple Larson Scanner with phatIO - a row of lights that scan back and forth, named after [Glen A. Larsen](http://en.wikipedia.org/wiki/Glen_A._Larson) creator of [Knight Rider](http://en.wikipedia.org/wiki/Knight_Rider_(1982_TV_series)) which features a scanner on the front of [KITT](http://en.wikipedia.org/wiki/KITT).
 
-This code is in the examples/larson_scanner/ directory on your phatIO or in the [repository](http://www.github.com/phatio/phatIO/examples/larson_scanner)
+The code is in the [repository](https://github.com/phatio/ideas/tree/master/larson_scanner/resources) and linked to from the resources sidebar.  The examples start with example shell and ruby code you can run on your host computer, with a self contained   - free running - version at the end.
 
 ##Basic Setup
 We'll be using Light Emitting Diodes, connected to phatIO's IO pins.  See the [LED Guide page](../../guide/leds.html) for information on how to connect LEDs - make sure they're biased correctly.  The examples below are on a breadboard and use red 3mm, 5V, 10mA, LEDS connected to pins 0 through 11, but you can extend to use all available IO pins as long as maximum current is not exceeded.

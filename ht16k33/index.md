@@ -15,8 +15,8 @@ Although only available in SMD packages or in small quantities, the HT16K33 is u
 
 This guide concentrates on how to communicate with the HT16K33 from the phatIO it is not an introduction to the internals the HT16K33 device - for that read the [HT16K33 datasheet][datasheet].
 
-Any problems you can [discuss this in the forum](http://www.phatio.com/forum/viewforum.php?f=14&sid=ed2b4cf98744bf2e562f218268f41471).
 
+Copy `run.lio` (in the resources sidebar) to `PHATIO/io/run.lio` on your phatIO device.
 
 ##Setup
 

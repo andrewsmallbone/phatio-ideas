@@ -12,6 +12,9 @@ This guide shows how to communicate with the [MCP23017/MCP23S17 16 Bit IO Expand
 
 The I2C device is connected to phatIO's two TWI lines (13 and 14) and the SPI device to the 3 SPI pins + 1 select pin.  Upto 8 TWI devices and 8 SPI devices on each Select pin.
 
+Copy `run.lio` (in the resources sidebar) to `PHATIO/io/run.lio` on your phatIO device.
+
+
 ##Setup
 
 Photo of the setup is below:

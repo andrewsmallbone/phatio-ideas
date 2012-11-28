@@ -23,6 +23,7 @@ I'm using only the red LEDs of a Red/Green LED matrix (pinout below) with suitab
 
 Anodes are connected to phatIO pins 0..7 and cathodes to pins 12..19.
 
+Copy `run.lio` (in the resources sidebar) to `PHATIO/io/run.lio` on your phatIO device.
 
 ##Controlling the device
 

@@ -30,7 +30,7 @@ When the buttons are pressed the pins will be connected to 0V, which we can capt
 
 The following ideas don't necessarily have to be triggered from a switch - it could be an [analog condition](../ideas/basic_adc/) or some other event.
 
-In the add the following code to run.lio or copy the version in the box on the right of this page to your phatIO and uncomment the required action.
+Add the following code to run.lio or copy the version in the resources sidebar on the right of this page to your phatIO and uncomment the required action.
 
 
 See the [keyboard](/guide/lio/keyboard) section of the guide for how to simulate Control and Function keys.
