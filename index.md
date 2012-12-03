@@ -14,6 +14,9 @@ Some example projects, ideas, and things todo with phatIO.
 [Controlling phatIO from HTML in a web browser](html/)
 :	Use some browsers support for local file access to control phatIO
 
+[Dropbox integration](dropbox/)
+:	Linux and OS X computers can share phatIO files to dropbox allowing control from other computers
+
 
 Some examples underdevelopment, not completed or fully documented, but may be useful:
 
