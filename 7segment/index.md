@@ -7,10 +7,10 @@ tags:	7segment, led,
 
 This page shows how to connect a multi digit [7 segment](http://en.wikipedia.org/wiki/Seven-segment_display) display to phatIO.  Each digit has 7 (or 8 including the decimal point) pins.  So 2 digits could be controlled directly using 16 of phatIO's 20 IO pins.  To control more requires multiplexing the digits - using the same pins connected to the same segment on all digits and use a pin to turn on each digit.  The required segments on each digit are lit in turn very quickly.  Persistence of Vision eliminates the _flicker_.
 
-For optimum performance with controllable intensity control of 7 segment displays a driver chip should be used such as the MAX7219 or [ht16k33](../ideas/ht16k33/)
+For optimum performance with controllable intensity control of 7 segment displays a driver chip should be used such as the MAX7219 or [ht16k33](../ht16k33/)
 
 Resources are in the side bar or can be found in the 
-[repository](http://www.github.com/phatio/ideas/7segment/resources/)
+[repository](https://github.com/phatio/ideas/blob/master/7segment/resources/)
 
 
 ##Setup
