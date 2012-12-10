@@ -17,14 +17,17 @@ Some example projects, ideas, and things todo with phatIO.
 [Dropbox integration](dropbox/)
 :	Linux and OS X computers can share phatIO files to dropbox allowing control from other computers
 
+[Multiplexing 7-Segment Displays](7segment/)
+:	Directly controlling multiple 7-segment displays.
+
+[Simple Control of LED Matrix](led_matrix/)
+:	Directly controlling an LED Matrix using phatIO's IO pins.
+
 
 Some examples underdevelopment, not completed or fully documented, but may be useful:
 
 [Using the MCP23017/MCP23S17 IO Expander](mcp23X17/)
 :	Adding another 16 IO ports using a SPI or I2C expander.
-
-[Simple Control of LED Matrix](led_matrix/)
-:	Directly controlling an LED Matrix using phatIO's IO pins.
 
 [Simple Keyboard Hacks](keyboard/)
 :	Ideas for what to do with phatIO's keyboard simulation

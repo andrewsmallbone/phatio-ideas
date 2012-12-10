@@ -1,0 +1,55 @@
+; example code for controlling 7 segment display
+; see http://www.phatio.com/ideas/7segment/ for details
+; copy this file to run.lio on your phatIO device
+(config 1 1 0)
+
+
+; set all pins as outputs
+; we use pins 0..6 for the LED segments and 7..10
+; for the digit selectors.
+(defvar i 0)
+(while (< i 11)
+       (pinmode i OUT 0)
+       (+= i 1))
+	   	   
+; array to hold the pin values for the pins 
+; connected to the LED segments:
+; bit 0: a, bit 1: b, bit 7: g
+; if common cathode use 0x00 defaults to turn off
+;(defvar data 0x00 0x00 0x00 0x00)
+; if common anode use 0xFF defaults to turn off
+(defvar data 0xFF 0xFF 0xFF 0xFF)
+
+
+; every millisecond:
+; 1. turn off current LED digit
+; 2. increment 'digit' to the next LED digit
+; 3. output the segments for that digit
+; 4. turn on the new LED digit
+(defvar digit 0)
+(every 1
+ 	(setpin (+ 7 digit) 1)
+ 	(if (eq digit 3) (= digit 0) (+= digit 1))
+ 	(port (getvar data digit) 0 1 2 3 4 5 6)
+    (setpin (+ 7 digit) 0)
+)
+
+; array/map from digit to 7 segments
+;use following if common anode
+(defconst cmap 0xC0 0xF9 0xA4 0xB0 0x99 0x92 0x82 0xF8 0x80 0x90);
+; use the following if common cathode	
+;(defconst cmap 0x3F 0x06 0x5B 0x4F 0x66 0x6D 0x7D 0x07 0x7F 0x6F)
+
+; device driver when "1234" written to PHATIO/io/dev/number
+; convert the ASCII digit to 7 segment and save to data array
+(driver number
+	(= i 0)
+	(while (< i 4) 
+		 (= data i (getvar cmap (- (read_byte i) '0')))
+		 (if (eq 0 (getvar data i)) (= data i 0xFF))
+		 (+= i 1))
+)
+
+(driver bypass (setpin 11 (- (read_byte 0) '0')))
+(driver mail (setpin 12 (- (read_byte 0) '0')))
+(driver sound (setpin 13 (- (read_byte 0) '0')))
