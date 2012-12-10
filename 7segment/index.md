@@ -10,7 +10,7 @@ This page shows how to connect a multi digit [7 segment](http://en.wikipedia.org
 For optimum performance with controllable intensity control of 7 segment displays a driver chip should be used such as the MAX7219 or [ht16k33](../ht16k33/)
 
 Resources are in the side bar or can be found in the 
-[repository](https://github.com/phatio/ideas/blob/master/7segment/resources/)
+[repository](https://github.com/phatio/, /blob/master/7segment/resources/)
 
 
 ##Setup
