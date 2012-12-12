@@ -1,0 +1,71 @@
+; phatIO config for 'webometer' http://www.phatio.com/ideas/webometer/
+; copy this file to io/run.lio on your phatIO device
+; cycles through the data written to io/dev/webometer displaying 4 digits 
+; at a time and lights LED's to show which data is being displayed.
+; This version is for a ht16k33 4 digit 7 segment display such as 
+; https://www.adafruit.com/products/1002
+; See http://www.phatio.com/ideas/ht16k33/ for more details about 
+; using these displays with phatIO
+
+(config 1 1 0)
+
+; Set all pins as outputs
+; The ht16k33 display is connected to pins 12 and 13 (SCL and SD)
+; The 'mode' LEDs to 17..19 
+(defvar i 0)
+(while (< i 20)
+       (pinmode i OUT 0)
+       (+= i 1))
+	   	   
+; current segment values of the digits
+(defvar data 0 0 0 0  0 0 0 0  0 0 0 0  0 0 0 0)
+
+; current 'mode' offset of data array is 4*mode
+(defvar mode 0)
+
+
+; device driver when "123412341234" written to PHATIO/io/dev/webometer
+; convert the ASCII digits to 7 segment and save to the data array
+(defconst cmap 0x3F 0x06 0x5B 0x4F 0x66 0x6D 0x7D 0x07 0x7F 0x6F)
+(driver webometer
+	(= i 0)
+	(while (< i 16) 
+		 (= data i (getvar cmap (- (read_byte i) '0')))
+		 ; if it wasn't mapped to a digit (has a value 0) check if special char
+		 (if (and (eq 0 (getvar data i)) (eq (read_byte i) '-'))
+		 		(= data i 0x40)  ; display '-'
+		 )
+		 (+= i 1))
+)
+
+
+; initialize display
+(defvar addr 0xE0) ; our TWI display is at address 0, addr =  0xE0 + 2*address
+(defun ht16k33_init 
+        (twi addr 0x21) ; turn matrix control oscillator on (0x20 to turn off)
+        (twi addr (| 0xE0 0)) ; set brightness (between 0 and 15)
+        (twi addr (| 0x80 1)) ; set display on, no blinking (1=on, 0=off, 3=2Hz, 5=1Hz, 7=0.5Hz)
+)
+
+; send 4 bytes to the display
+(defun ht16k33_send
+	(= i (* mode 4))
+	(twi addr 0x00
+		(getvar data (+ i 0)) 0x00
+		(getvar data (+ i 1)) 0x00
+		(if (eq mode 0) 0xFF 0x00) 0x00; display colon if mode is 0 (time)
+		(getvar data (+ i 2)) 0x00
+		(getvar data (+ i 3)) 0x00
+	)
+)
+(ht16k33_init)
+
+; every 3 seconds change the mode and turn on the relevant LED
+; mode LEDs are on pins 17..19
+; mode 0 (the current time) is indicated by no LEDs lit
+(every 3000
+	(if mode (setpin (+ 16 mode) 0))
+	(= mode (if (eq mode 3) 0 (+ mode 1)))
+	(ht16k33_send)
+	(if mode (setpin (+ 16 mode) 1))
+)

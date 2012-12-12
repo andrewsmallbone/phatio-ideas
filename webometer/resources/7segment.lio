@@ -1,0 +1,58 @@
+; phatIO config for 'webometer' http://www.phatio.com/ideas/webometer/
+; copy this file to io/run.lio on your phatIO device
+; cycles through the data written to io/dev/webometer displaying 4 digits 
+; at a time and lights LED's to show which data is being displayed.
+; This version is for a phatIO multiplexed 7 segment display and
+; the following code assumes 4 digit common cathode 7 segment display
+; see http://www.phatio.com/ideas/7segment/
+;
+(config 1 1 0)
+
+
+; set all pins as outputs
+; we use pins 0..6 for the LED segments and 7..10
+; for the digit selectors. and 14..17 for the 'mode' LEDs
+(defvar i 0)
+(while (< i 20)
+       (pinmode i OUT 0)
+       (+= i 1))
+	   	   
+; current segment values of the digits
+(defvar data 0xFF 0xFF 0xFF 0xFF  0xFF 0xFF 0xFF 0xFF  0xFF 0xFF 0xFF 0xFF  0xFF 0xFF 0xFF 0xFF)
+
+; current digit being displayed
+(defvar digit 0)
+
+; current 'mode' offset of data array is 4*mode
+(defvar mode 0)
+
+(every 1
+ 	(setpin (+ 7 digit) 1); turn off current row
+ 	(if (eq digit 3) (= digit 0) (+= digit 1))
+ 	(port (getvar data (+ (* mode 4) digit)) 0 1 2 3 4 5 6)
+    (setpin (+ 7 digit) 0)
+)
+
+; every 3 seconds change the mode and turn on the relevant LED
+; mode LEDs are on pins 14..17
+(every 3000
+	(setpin (+ 14 mode) 0)
+	(= mode (if (eq mode 3) 0 (+ mode 1)))
+	(setpin (+ 14 mode) 1)
+)
+
+; device driver when "123412341234" written to PHATIO/io/dev/number
+; convert the ASCII digits to 7 segment and save to the data array
+(defconst cmap 0xC0 0xF9 0xA4 0xB0 0x99 0x92 0x82 0xF8 0x80 0x90);
+(driver webometer
+	(= i 0)
+	(while (< i 16) 
+		 (= data i (getvar cmap (- (read_byte i) '0')))
+		 ; if it wasn't mapped to a digit (has a value 0) check if special char
+		 (if (eq 0 (getvar data i)) 
+			 (= data i (if (eq (read_byte i) '-')
+			 		0x3F  ; display '-'
+			 		0xFF) ; display nothing (common anode led)
+			))
+		 (+= i 1))
+)

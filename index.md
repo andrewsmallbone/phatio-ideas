@@ -8,6 +8,9 @@ Some example projects, ideas, and things todo with phatIO.
 [LED dislay Control with the ht16k33](ht16k33/)
 :	Communicate with popular TWI LED controllers
 
+[Webometer: Displaying internet data](webometer/)
+:	Display numbers from the internet on a 7-segment display.
+
 [Basic ADC - Analogue to Digital Conversion](basic_adc/)
 :	Some ideas and techniques for using phatIO ADC capable pins.
 
