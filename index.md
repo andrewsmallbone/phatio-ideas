@@ -8,6 +8,11 @@ Some example projects, ideas, and things todo with phatIO.
 [LED dislay Control with the ht16k33](ht16k33/)
 :	Communicate with popular TWI LED controllers
 
+
+[LCD Displays](HD44780/)
+:	Write text to a file to display it on an LCD display
+
+
 [Webometer: Displaying internet data](webometer/)
 :	Display numbers from the internet on a 7-segment display.
 

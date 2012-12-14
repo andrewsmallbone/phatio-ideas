@@ -1,0 +1,108 @@
+; Very basic LCD support
+; copy this file to PHATIO/io/run.lio on your phatIO device
+; and write text to PHATIO/io/dev/lcd
+; see http://www.phatio.com/ideas/HD44780/
+(config 1 1 0)
+
+; set the following to the number of characters per line 
+; of display on attached 2 line device or set to 0
+(defvar cols 0)
+
+; LCD pins RS, RW, E on phatIO 0, 1, 2
+; LCD data DB0..DB7 on phatio 3..10
+(defconst rs 0)
+(defconst rw 1)
+(defconst e 2)
+(defconst bf 10)
+
+; set pins to output
+(defvar i 0)
+(while (< i 11)
+	(pinmode i OUT)
+	(+= i 1))
+
+; send data to LCD - currently full 8 bit bus
+; when phatIO supports function args this will be (send 0xFF)
+(defvar data 0x00)
+(defvar send
+	(port data 3 4 5 6 7 8 9 10)
+	(setpin e 1)
+	(setpin e 0)
+)
+
+; wait for busyflag to go low
+(defvar waitforbf
+	(setpin rw 1)
+	(pinmode bf IN)
+	(setpin e 1)
+	(while (eq (getpin bf) 1)
+		(setpin e 0)
+		(setpin e 1)
+	)
+	(setpin e 0)
+	(pinmode bf OUT)
+	(setpin rw 0)
+)
+
+
+(defun lcd_init
+	(setpin rs 0)
+	(setpin rw 0)
+	(setpin e 0)
+	; atleast 15ms - this code won't run until atleast 15ms after V=4.5V
+	(= data 0x38)(send)
+	;	(delay 5); atleast 4.1
+	(send)
+	;	(delay 1); atleast 100uS
+	(send)
+	(send)
+; (= data 0x08)(send) ; off
+; (= data 0x01)(send) ; clear display
+; (= data 0x04)(send) ; entry mode
+	(= data 0x0C)(send); Display On
+	(= data 0x06)(send); shift
+)
+
+; the current column position
+(defvar col 0)
+ 
+; writes a space to end of 'line' 40 characters
+; only if cols is not 0
+(defun padline
+	(if (and (> cols 0) (< cols 40))
+		((= data 0x20)
+		 (while (< col 40) 
+		 	(send)
+			(+= col 1))
+ 	 	  (= col 0)
+		 )
+	)
+)
+	
+; when io/dev/lcd is written to send the text to the LCD display	
+(driver lcd
+	(= data 0x00)(send) ; clear screen
+	(waitforbf)
+	
+	(= i 0)
+	(= col 0)
+	(setpin rs 1)
+	
+	; while there is data in the file
+	(while (= data (read_byte i))
+		(if (eq data 0x0A) ; if newline pad to end
+			(padline)
+			((send) ; else send character
+			 (+= col 1) ; if we've reached last col of line pad buffer
+		     (if (eq col cols) (padline))
+			)
+		)
+		(+= i 1)
+	)
+
+	; cursor home for next time
+	(setpin rs 0)
+	(= data 0x02)(send)
+)
+
+(lcd_init)

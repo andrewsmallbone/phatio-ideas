@@ -19,7 +19,7 @@ The host computer updates the data every minute and writes it to a file on the p
 <iframe width="560" height="315" style="display: block; margin-left: auto; margin-right: auto" src="http://www.youtube-nocookie.com/embed/h-ydurPGKIY" frameborder="0" allowfullscreen></iframe>
 
 
-Python was used for the examples, because:
+Python was used to get the data from the internet, because:
 
 1.	A version ships with most LInux installations and Mac OS X and comes as an easy to install package for windows
 2.	Has built in libraries for HTTP, JSON, XML etc. so doesn't need additional packages installed
