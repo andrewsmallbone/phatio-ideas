@@ -1,4 +1,6 @@
 #! /usr/bin/python
+# python script for phatIO webometer example
+# instructions at http://www.phatio/com/ideas/webometer/
 
 
 import imaplib
