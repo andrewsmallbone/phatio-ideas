@@ -78,7 +78,7 @@ LaunchBar is a Mac application launcher from keyboard shortcuts - if you have it
 	
 Or to phone someone with skype:
 
-	(pin_goes_low 0 (keyboard "%{LeftGUI+ }twitter This is an automated tweet \n"))
+	(pin_goes_low 0 (keyboard "%{LeftGUI+ }skype 555 1234 5678\n"))
 
 
 
