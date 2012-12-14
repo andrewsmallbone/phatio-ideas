@@ -9,7 +9,7 @@ This shows how to map a [HD44780](http://en.wikipedia.org/wiki/Hitachi_HD44780_L
 
 <iframe width="560" height="315" style="display: block; margin-left: auto; margin-right: auto" src="http://www.youtube-nocookie.com/embed/BDEfdRqanss" frameborder="0" allowfullscreen></iframe>
 
-The phatIO driver is still fairly basic, uses the full 8-bit databus and just maps the HD44780 display RAM to file, but does provide ability to process newlines automatically.  An updated driver will be posted later with support for 4-bit databus and using custom fonts
+The phatIO driver is still fairly basic, uses the full 8-bit databus and just maps the HD44780 display RAM to file, but does provide ability to process newlines automatically.  An updated driver will be posted later with support for 4-bit databus and using custom fonts.
 
 Copy run.lio in the resources sidebar to your phatIO device (from the sidebar or browse the [repository](http://www.github.com/phatio/ideas/HD44780/resources/))
 
