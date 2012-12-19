@@ -10,11 +10,17 @@ Some example projects, ideas, and things todo with phatIO.
 [Webometer: Displaying internet data](webometer/)
 :	Display numbers from the internet on a 7-segment display - twitter followers/unread emails etc.
 
-[Basic ADC - Analogue to Digital Conversion](basic_adc/)
-:	Some ideas and techniques for using phatIO ADC capable pins.
+
+## Sensors and Input devices
 
 [Simple Keyboard Hacks](keyboard/)
 :	Ideas for what to do with phatIO's keyboard simulation
+
+[Basic ADC - Analogue to Digital Conversion](basic_adc/)
+:	Some ideas and techniques for using phatIO ADC capable pins.
+
+[Passive Infra Red Sensors](PIR/)
+:	Simple movement detection with a cheap Passive Infra Red Sensor (PIR).
 
 
 ## Ways to Communicate with phatIO

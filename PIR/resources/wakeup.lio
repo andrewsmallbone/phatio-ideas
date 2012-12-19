@@ -1,0 +1,25 @@
+; Sends a shift key to the host computer when it detects movement
+; will wait for WAIT seconds of non movement before sending again
+; This should disable screensaver/wakeup computer on most operating systems.
+; See http://www.phatio.com/ideas/PIR/
+
+; PIR is expected to be connected to pin 0 or change following
+(defconst PIR 0)
+(pinmode PIR IN)
+
+(defconst QUIET 60)
+
+(defvar quiet 0)
+(pin_goes_high PIR 
+	(if (> quiet QUIET)
+		((keyboard "%{LeftShift}")
+  		 (= quiet 0))
+	)
+)
+
+(pin_goes_low PIR	(= quiet 1))
+
+; every second increment 'quiet' if no movement is detected.
+(every 1000  
+ 	(if quiet (+= quiet 1))
+)

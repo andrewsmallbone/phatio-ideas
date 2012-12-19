@@ -1,0 +1,17 @@
+; Basic phatIO PIR (passive infra red detector) demo
+; See http://www.phatio.com/ideas/PIR/
+; PIR is expected to be connected to pin 0 and an LED to pin 1	
+; types "movement!" and lights LED when the 'PIR' pin 
+; goes high (when it detects movement)
+
+(defconst PIR 0)
+(pinmode PIR IN)
+
+(defconst LED 1)
+(pinmode LED OUT)
+
+(pin_goes_high PIR 
+	(keyboard "movement!")
+	(setpin LED 1))
+
+(pin_goes_low PIR (setpin LED 0))
