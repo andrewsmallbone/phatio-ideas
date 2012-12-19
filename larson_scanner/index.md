@@ -13,7 +13,7 @@ This guide shows various ways of making a simple Larson Scanner with phatIO - a 
 The code is in the [repository](https://github.com/phatio/ideas/tree/master/larson_scanner/resources) and linked to from the resources sidebar.  The examples start with example shell and ruby code you can run on your host computer, with a self contained   - free running - version at the end.
 
 ##Basic Setup
-We'll be using Light Emitting Diodes, connected to phatIO's IO pins.  See the [LED Guide page](../../guide/leds.html) for information on how to connect LEDs - make sure they're biased correctly.  The examples below are on a breadboard and use red 3mm, 5V, 10mA, LEDS connected to pins 0 through 11, but you can extend to use all available IO pins as long as maximum current is not exceeded.
+We'll be using Light Emitting Diodes, connected to phatIO's IO pins.  Make sure the LEDs are biased correctly using [an appropriate series resistor](http://en.wikipedia.org/wiki/LED_circuit) for your LED.  The examples below are on a breadboard and use red 3mm, 5V, 10mA, LEDS connected to pins 0 through 11, but you can extend to use all available IO pins as long as maximum current is not exceeded.
 
 ![12 5V LEDs with Anodes (Long Leg) connected to phatIO's top IO pins 0..11 and Cathodes (short leg) connected to ground.  Make sure your LEDs are biased correctly.](setup-50.jpg)
 
