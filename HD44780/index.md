@@ -54,7 +54,7 @@ The data pins may be in a single or double row as shown below:
 ![Rear of two HD44780 LCD devices showing connections.  Note that the smaller device uses a 2x14 connector and separate A and K connections on the other side of the board.](rear-75.jpg)
 
 ##phatIO Config
-Copy [run.lio]](http://www.github.com/phatio/ideas/HD44780/resources/run.lio) to the `io` directory on the phatIO device.  This creates a driver `PHATIO/io/dev/lcd` when text is written to this file, the screen will be cleared and the text written to it.
+Copy [run.lio](http://www.github.com/phatio/ideas/HD44780/resources/run.lio) to the `io` directory on the phatIO device.  This creates a driver `PHATIO/io/dev/lcd` when text is written to this file, the screen will be cleared and the text written to it.
 
 The LCD Driver chip contains an 80 character buffer that represents the characters on the display.   The following image shows a 4 x 20 LCD when the text `"AAAAAAAAAAAAAAAAAAAABBBBBBBBBBBBBBBBBBBBCCCCCCCCCCCCCCCCCCCC DDDDDDDDDDDDDDDDDDDD"` is entered:
 
